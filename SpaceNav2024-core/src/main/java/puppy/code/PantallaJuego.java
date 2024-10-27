@@ -45,9 +45,9 @@ public class PantallaJuego implements Screen {
 		camera = new OrthographicCamera();	
 		camera.setToOrtho(false, 800, 640);
 		//inicializar assets; musica de fondo y efectos de sonido
-		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.ogg"));
+		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
 		explosionSound.setVolume(1,0.5f);
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav")); //
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.mp3")); 
 		
 		gameMusic.setLooping(true);
 		gameMusic.setVolume(0.5f);
