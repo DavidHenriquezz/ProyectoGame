@@ -67,7 +67,7 @@ public class PantallaJuego implements Screen {
 	private void crearEnemigos() {
 		Random r = new Random();
         for (int i = 0; i < cantAsteroides; i++) {
-            Enemigo enemigoBasico = new EnemigoBasico(new Texture(Gdx.files.internal("aGreySmall.png")),
+            Enemigo enemigoBasico = new EnemigoBasico(new Texture(Gdx.files.internal("EnemigoBasico.png")),
                                                       r.nextInt(Gdx.graphics.getWidth()),
                                                       Gdx.graphics.getHeight() - 100, // Inicia en la parte superior
                                                       velXAsteroides + r.nextInt(2),
@@ -76,7 +76,7 @@ public class PantallaJuego implements Screen {
         }
 
         for (int i = 0; i < cantAsteroides; i++) {
-            EnemigoAvanzado enemigoAvanzado = new EnemigoAvanzado(new Texture(Gdx.files.internal("aGreyMedium4.png")),
+            EnemigoAvanzado enemigoAvanzado = new EnemigoAvanzado(new Texture(Gdx.files.internal("EnemigoAvanzado.png")),
                                                                   r.nextInt(Gdx.graphics.getWidth()),
                                                                   Gdx.graphics.getHeight() - 100,
                                                                   velXAsteroides + r.nextInt(2),
