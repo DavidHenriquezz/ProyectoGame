@@ -22,6 +22,9 @@ public class Nave4 {
     private Sound soundBala;
     private Texture txBala;
     private boolean herido = false;
+    private boolean invulnerable = false;
+    private float tiempoInvulnerable = 0; // Duración de invulnerabilidad
+    private final float TIEMPO_INVULNERABLE_MAX = 5.0f; // Duración en segundos
     private int tiempoHeridoMax=50;
     private int tiempoHerido;
     
@@ -96,11 +99,17 @@ public class Nave4 {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {         
         	disparar(juego);
         }
-       
+        
+        if (invulnerable) {
+        	tiempoInvulnerable -= Gdx.graphics.getDeltaTime();
+            if (tiempoInvulnerable <= 0) {
+                invulnerable = false;
+            }
+        }
     }
       
     public boolean checkCollision(Enemigo enemigo) {
-        if(!herido && enemigo.getArea().overlaps(spr.getBoundingRectangle())){
+        if(!invulnerable && !herido && enemigo.getArea().overlaps(spr.getBoundingRectangle())){
         	//actualizar vidas y herir
             vidas--;
             herido = true;
@@ -120,6 +129,12 @@ public class Nave4 {
  	   return herido;
     }
     
+    public void setInvulnerable(boolean estado) {
+        this.invulnerable = estado;
+        if (estado) {
+            tiempoInvulnerable = TIEMPO_INVULNERABLE_MAX;
+        }
+    }
     public int getVidas() {return vidas;}
     //public boolean isDestruida() {return destruida;}
     public int getX() {return (int) spr.getX();}
