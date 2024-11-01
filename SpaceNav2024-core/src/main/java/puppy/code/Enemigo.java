@@ -25,8 +25,8 @@ public abstract class Enemigo {
 		sprite.setPosition(sprite.getX() + xSpeed, sprite.getY() + ySpeed);
 		
 		//Controlar los bordes de la pantalla
-		if (sprite.getX() < 0 || sprite.getX() + sprite.getWidth() > Gdx.graphics.getWidth()) xSpeed = -xSpeed;
-        if (sprite.getY() < 0 || sprite.getY() + sprite.getHeight() > Gdx.graphics.getHeight()) ySpeed = -ySpeed;
+		if (sprite.getX() < 0 || sprite.getX() + 64 > Gdx.graphics.getWidth()) xSpeed = -xSpeed;
+        if (sprite.getY() < 0 || sprite.getY() + 64 > Gdx.graphics.getHeight()) ySpeed = -ySpeed;
 	}
 	
 	public Rectangle getArea() {
