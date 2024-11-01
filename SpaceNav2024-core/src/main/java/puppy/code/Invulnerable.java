@@ -29,7 +29,7 @@ public class Invulnerable implements PowerUp{
     
     @Override
     public void update() {
-        bounds.y -= 2; // Ajusta la velocidad de caída
+        bounds.y -= 7; // Ajusta la velocidad de caída
         if (collected && System.currentTimeMillis() - startTime >= DURATION) {
             //nave.setInvulnerable(false); hay que ver esta linea ya que update solo deberia ver el movimiento del power up, no su aplicacion
         }
@@ -47,4 +47,8 @@ public class Invulnerable implements PowerUp{
         return collected;
     }
     
+    @Override
+	public Rectangle getBounds() {
+		return bounds;
+	}
 }
