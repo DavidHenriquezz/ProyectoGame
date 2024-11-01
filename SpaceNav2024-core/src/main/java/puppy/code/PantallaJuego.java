@@ -30,6 +30,7 @@ public class PantallaJuego implements Screen {
 	private ArrayList<Enemigo> enemigos = new ArrayList<>();
 	private  ArrayList<Bullet> balas = new ArrayList<>();
 	public static ArrayList<Bullet> balasEnemigas = new ArrayList<>();
+	private ArrayList<PowerUp> mejoras = new ArrayList<>();
 	//private Texture enemigoBalaTexture;
 
 	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score,  
@@ -64,11 +65,11 @@ public class PantallaJuego implements Screen {
         //enemigoBalaTexture = new Texture(Gdx.files.internal("Rocket2.png"));
         crearEnemigos();
 	}
-	private void crearEnemigos() {
+	private void crearEnemigos() { //Crea los enemigos para la ronda
 		Random r = new Random();
         for (int i = 0; i < cantAsteroides; i++) {
             Enemigo enemigoBasico = new EnemigoBasico(new Texture(Gdx.files.internal("EnemigoBasico.png")),
-                                                      r.nextInt(Gdx.graphics.getWidth()),
+                                                      r.nextInt(Gdx.graphics.getWidth() - 65),
                                                       Gdx.graphics.getHeight() - 100, // Inicia en la parte superior
                                                       velXAsteroides + r.nextInt(2),
                                                       0);
@@ -77,7 +78,7 @@ public class PantallaJuego implements Screen {
 
         for (int i = 0; i < cantAsteroides; i++) {
             EnemigoAvanzado enemigoAvanzado = new EnemigoAvanzado(new Texture(Gdx.files.internal("EnemigoAvanzado.png")),
-                                                                  r.nextInt(Gdx.graphics.getWidth()),
+                                                                  r.nextInt(Gdx.graphics.getWidth() - 65),
                                                                   Gdx.graphics.getHeight() - 100,
                                                                   velXAsteroides + r.nextInt(2),
                                                                   velYAsteroides + r.nextInt(2),
@@ -109,7 +110,20 @@ public class PantallaJuego implements Screen {
 	          b.draw(batch);
 	      }
 	      nave.draw(batch, this);
-	      
+	      for (int i = 0; i < mejoras.size(); i++) { //Power Ups
+	    	    PowerUp powerUp = mejoras.get(i);
+	    	    powerUp.update();
+	    	    powerUp.render(batch);
+
+	    	    if (nave.getArea().overlaps(powerUp.getBounds())) {
+	    	        powerUp.aplicarEfecto(nave);  // Aplicar el efecto al recogerlo
+	    	    }
+
+	    	    if (powerUp.isCollected()) {
+	    	        mejoras.remove(i);
+	    	        i--; // Ajustar índice tras eliminación
+	    	    }
+	    	}
 	      if (nave.estaDestruido()) {
 	    	  GameOver();
   		  }
@@ -128,13 +142,26 @@ public class PantallaJuego implements Screen {
         for (int i = 0; i < balas.size(); i++) {
             Bullet b = balas.get(i);
             b.update();
+            Random random = new Random();
+            double r = random.nextDouble();
             for (int j = 0; j < enemigos.size(); j++) {    
                 if (b.checkCollision(enemigos.get(j))) {          
                     explosionSound.play();
+                    if (r < 0.025 && r > 0.01) { //Dropear power-ups. Cambiar luego para que PantallaJuego no lo haga
+                    	PowerUp nuevoPowerUp = new VidaExtra(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY());
+                    	
+                    	mejoras.add(nuevoPowerUp);
+                    	
+                    }
+                    if (r < 0.01) {
+                    	PowerUp inv = new Invulnerable(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY());
+                    	mejoras.add(inv);
+                    }
                     enemigos.remove(j);
                     j--; // Ajustar índice tras eliminar
                     score += 10;
-                }      
+                    
+                }
             }
 
             if (b.isDestroyed()) {
@@ -144,6 +171,7 @@ public class PantallaJuego implements Screen {
         }
     }
 	private void actualizarEnemigos() {
+		float deltaTime = Gdx.graphics.getDeltaTime();
         for (int i = 0; i < enemigos.size(); i++) {
             Enemigo enemigo = enemigos.get(i);
             enemigo.update();
