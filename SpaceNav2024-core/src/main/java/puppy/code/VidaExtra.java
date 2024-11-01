@@ -25,7 +25,7 @@ public class VidaExtra implements PowerUp {
 	
 	@Override
     public void update() {
-        bounds.y -= 2; // Ajusta la velocidad de caída
+        bounds.y -= 7; //velocidad de caída
     }
 	
 	@Override
@@ -39,5 +39,10 @@ public class VidaExtra implements PowerUp {
 	
 	public boolean isCollected() {
 		return collected;
+	}
+	
+	@Override
+	public Rectangle getBounds() {
+		return bounds;
 	}
 }
