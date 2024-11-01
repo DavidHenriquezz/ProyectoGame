@@ -1,5 +1,6 @@
 package puppy.code;
 
+import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import java.util.ArrayList;
 
 
 
@@ -27,6 +29,8 @@ public class Nave4 {
     private final float TIEMPO_INVULNERABLE_MAX = 5.0f; // Duración en segundos
     private int tiempoHeridoMax=50;
     private int tiempoHerido;
+    
+    //private ArrayList<Bullet> balas = new Arraylist<>();
     
     public Nave4(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala) {
     	sonidoHerido = soundChoque;
@@ -78,7 +82,7 @@ public class Nave4 {
         }
     }
     private void disparar(PantallaJuego juego) {
-    	Bullet  bala = new Bullet(spr.getX()+spr.getWidth()/2-5,spr.getY()+ spr.getHeight()-5,0,3,txBala, false);
+    	Bullet  bala = new Bullet(spr.getX()+spr.getWidth()/2-5,spr.getY()+ spr.getHeight()-5,0,20,txBala, false);
 	    juego.agregarBala(bala);
 	    soundBala.play();
     }
