@@ -27,6 +27,7 @@ public class PantallaJuego implements Screen {
 	private int cantAsteroides;
 	
 	private Nave4 nave;
+	private EfectoPowerUp aplicadorEfectos = new EfectoPowerUp();
 	private ArrayList<Enemigo> enemigos = new ArrayList<>();
 	private  ArrayList<Bullet> balas = new ArrayList<>();
 	public static ArrayList<Bullet> balasEnemigas = new ArrayList<>();
@@ -116,7 +117,11 @@ public class PantallaJuego implements Screen {
 	    	    powerUp.render(batch);
 
 	    	    if (nave.getArea().overlaps(powerUp.getBounds())) {
-	    	        powerUp.aplicarEfecto(nave);  // Aplicar el efecto al recogerlo
+	    	    	
+	    	    	aplicadorEfectos.setPowerUp(powerUp); // Se usa patron strategy
+	    	    	aplicadorEfectos.aplicarEfecto(nave); //Aplicar el efecto al recogerlo
+	    	    	
+	    	        //powerUp.aplicarEfecto(nave);  // Aplicar el efecto al recogerlo
 	    	    }
 
 	    	    if (powerUp.isCollected()) {
@@ -147,7 +152,7 @@ public class PantallaJuego implements Screen {
             for (int j = 0; j < enemigos.size(); j++) {    
                 if (b.checkCollision(enemigos.get(j))) {          
                     explosionSound.play();
-                    if (r < 0.025 && r > 0.01) { //Dropear power-ups. Cambiar luego para que PantallaJuego no lo haga
+                    if (r < 0.525 && r > 0.01) { //Dropear power-ups. Cambiar luego para que PantallaJuego no lo haga
                     	PowerUp nuevoPowerUp = new VidaExtra(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY());
                     	
                     	mejoras.add(nuevoPowerUp);
