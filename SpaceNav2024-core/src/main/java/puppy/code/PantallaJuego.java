@@ -121,7 +121,6 @@ public class PantallaJuego implements Screen {
 	    	    	aplicadorEfectos.setPowerUp(powerUp); // Se usa patron strategy
 	    	    	aplicadorEfectos.aplicarEfecto(nave); //Aplicar el efecto al recogerlo
 	    	    	
-	    	        //powerUp.aplicarEfecto(nave);  // Aplicar el efecto al recogerlo
 	    	    }
 
 	    	    if (powerUp.isCollected()) {
@@ -152,7 +151,7 @@ public class PantallaJuego implements Screen {
             for (int j = 0; j < enemigos.size(); j++) {    
                 if (b.checkCollision(enemigos.get(j))) {          
                     explosionSound.play();
-                    if (r < 0.525 && r > 0.01) { //Dropear power-ups. Cambiar luego para que PantallaJuego no lo haga
+                    if (r < 0.025 && r > 0.01) { //Dropear power-ups. Cambiar luego para que PantallaJuego no lo haga
                     	PowerUp nuevoPowerUp = new VidaExtra(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY());
                     	
                     	mejoras.add(nuevoPowerUp);
