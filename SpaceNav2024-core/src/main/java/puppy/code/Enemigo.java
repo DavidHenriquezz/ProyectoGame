@@ -20,13 +20,21 @@ public abstract class Enemigo {
 	
 	public abstract void move();
 	
+	//Template method
 	public void update() {
 		move();
+		updatePosition();
+		checkBounds();
+	}
+	
+	private void updatePosition() {
 		sprite.setPosition(sprite.getX() + xSpeed, sprite.getY() + ySpeed);
-		
+	}
+	
+	private void checkBounds() {
 		//Controlar los bordes de la pantalla
 		if (sprite.getX() < 0 || sprite.getX() + 64 > Gdx.graphics.getWidth()) xSpeed = -xSpeed;
-        if (sprite.getY() < 0 || sprite.getY() + 64 > Gdx.graphics.getHeight()) ySpeed = -ySpeed;
+		if (sprite.getY() < 0 || sprite.getY() + 64 > Gdx.graphics.getHeight()) ySpeed = -ySpeed;
 	}
 	
 	public Rectangle getArea() {
