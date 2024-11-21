@@ -21,7 +21,7 @@ public class EnemigoBasico extends Enemigo {
             setXSpeed(-getXSpeed());
             
             // Desciende en el eje Y
-            newY -= 20; // Ajusta este valor para el tamaño de "escalón" en Y
+            newY -= 40; // Ajusta este valor para el tamaño de "escalón" en Y
 
             // Asegura que el enemigo no baje más allá del borde inferior
             if (newY < 0) {
