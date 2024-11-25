@@ -1,6 +1,8 @@
 package puppy.code;
 
 import java.util.ArrayList;
+import puppy.code.PowerUpBuilder;
+
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -152,16 +154,23 @@ public class PantallaJuego implements Screen {
                 if (b.checkCollision(enemigos.get(j))) {          
                     explosionSound.play();
                     if (r < 0.025 && r > 0.01) { //Dropear power-ups. Cambiar luego para que PantallaJuego no lo haga
-                    	PowerUp nuevoPowerUp = new VidaExtra(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY());
-                    	
+                    	//PowerUp nuevoPowerUp = new VidaExtra(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY());
+                    	PowerUp nuevoPowerUp = new PowerUpBuilder("VidaExtra")
+                    			.setTexture("1up.png")
+                    			.setPosition(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY())
+                    			.build();
                     	mejoras.add(nuevoPowerUp);
                     	
                     }
                     if (r < 0.01) {
-                    	PowerUp inv = new Invulnerable(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY());
+                    	PowerUp inv = new PowerUpBuilder("Invulnerable")
+                    			.setTexture("Invulnerable.png")
+                    			.setPosition(enemigos.get(j).getSprite().getX(), enemigos.get(j).getSprite().getY())
+                    			.setDuracion(5000)
+                    			.build();
                     	mejoras.add(inv);
                     }
-                    enemigos.remove(j);
+                    enemigos.remove(j); 
                     j--; // Ajustar índice tras eliminar
                     score += 10;
                     

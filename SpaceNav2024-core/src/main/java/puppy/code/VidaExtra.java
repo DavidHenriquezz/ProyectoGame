@@ -9,7 +9,7 @@ public class VidaExtra implements PowerUp {
 	private Rectangle bounds;
 	private boolean collected;
 	
-	public VidaExtra(float x, float y) {
+	public VidaExtra(float x, float y,Texture texture) {
 		this.textura = new Texture("1up.png"); //textura del powerUp
 		this.bounds = new Rectangle(x,y, textura.getWidth(), textura.getHeight());
 		this.collected = false;
